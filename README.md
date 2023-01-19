@@ -9,3 +9,4 @@ Stack:
 - Socket.io
 - Express
 - Tailwind
+- SQLite
