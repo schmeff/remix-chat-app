@@ -546,6 +546,18 @@ video {
   place-content: center;
 }
 
+.overflow-scroll {
+  overflow: scroll;
+}
+
+.overflow-x-clip {
+  overflow-x: clip;
+}
+
+.overflow-y-scroll {
+  overflow-y: scroll;
+}
+
 .rounded-md {
   border-radius: 0.375rem;
 }
