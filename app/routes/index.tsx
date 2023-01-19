@@ -1,4 +1,4 @@
-import { Form, useActionData, useFetcher, useLoaderData } from '@remix-run/react';
+import { Form, useActionData, useLoaderData } from '@remix-run/react';
 import { useEffect, useRef, useState } from 'react';
 import io from 'socket.io-client'
 import { db } from '../util/db.server'
@@ -31,37 +31,48 @@ export async function action({ request }: ActionArgs) {
       author
     }
   });
-  return message
+  return message;
 }
 
 export default function Index() {
-  const [messages, setMessages] = useState(useLoaderData<typeof loader>() as Message[])
-  const receivedMessage = useActionData<typeof action>() as Message
+  const [messages, setMessages] = useState(useLoaderData<typeof loader>() as Message[]);
+  const receivedMessage = useActionData<typeof action>() as Message;
 
   const formRef = useRef<HTMLFormElement>(null);
+  const chatContainerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     socket.on('receiveMessage', (receivedMessage: Message) => {
       setMessages(prevMessages => [...prevMessages, receivedMessage]);
+      scrollToBottom();
     })
 
     return () => {
-      socket.off('receiveMessage')
+      socket.off('receiveMessage');
     }
   }, []);
 
   useEffect(() => {
     if (receivedMessage) {
       formRef.current?.reset();
-      socket.emit('message', receivedMessage)
+      socket.emit('message', receivedMessage);
     }
-  }, [receivedMessage])
+  }, [receivedMessage]);
+
+  useEffect(() => {
+    scrollToBottom();
+  }, [messages])
+
+  function scrollToBottom() {
+    setTimeout(() => {
+      chatContainerRef.current?.scrollTo({ top: chatContainerRef.current?.scrollHeight, behavior: 'smooth' });
+    });
+  }
 
   return (
     <div className='w-1/2 mx-auto h-screen grid place-content-center'>
-      <div className='chat-container border-2 rounded-md border-stone-800 p-2 h-96 overflow-y-scroll'>
+      <div className='chat-container border-2 rounded-md border-stone-800 p-2 h-96 overflow-y-scroll' ref={chatContainerRef}>
         {messages.map((message: Message) => <div key={message.id}>{message.content}</div>)}
-
       </div>
       <div className='mt-4'>
         <Form method='post' ref={formRef}>
