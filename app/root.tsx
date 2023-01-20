@@ -27,8 +27,8 @@ export default function App() {
         <Meta />
         <Links />
       </head>
-      <body className="dark:bg-gray-900 ">
-        <nav className="flex place-content-end mx-3 mt-2"><button onClick={() => { setDarkMode(prev => !prev) }}>{darkMode ? <MdOutlineLightMode className="text-white text-4xl" /> : <MdOutlineDarkMode className="text-4xl" />}</button></nav>
+      <body className="dark:bg-gray-900">
+        <nav className="flex place-content-end mx-3 my-2"><button onClick={() => { setDarkMode(prev => !prev) }}>{darkMode ? <MdOutlineLightMode className="text-white text-4xl" /> : <MdOutlineDarkMode className="text-4xl" />}</button></nav>
         <Outlet />
         <ScrollRestoration />
         <Scripts />

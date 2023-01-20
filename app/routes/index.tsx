@@ -78,8 +78,8 @@ export default function Index() {
   }
 
   return (
-    <div className='w-5/6 md:w-3/4 mx-auto h-screen flex flex-col justify-center dark:bg-gray-900'>
-      <div className='chat-container border-2 rounded-md border-stone-800 p-2 h-96 overflow-y-scroll min-w-max no-scrollbar' ref={chatContainerRef}>
+    <div className='w-5/6 md:w-3/4 mx-auto h-screen flex flex-col dark:bg-gray-900'>
+      <div className='chat-container border-2 rounded-md border-stone-800 p-2 h-2/3 overflow-y-scroll min-w-max no-scrollbar' ref={chatContainerRef}>
         {messages.map((message: Message) => <div key={message.id} className='bg-gray-300 dark:bg-gray-700 w-fit py-1 px-2 m-1 rounded-md'>
           <p className='dark:text-white text-xs'>{message.author}</p>
           <p className='break-words dark:text-white' key={message.id}>{message.content}</p>
