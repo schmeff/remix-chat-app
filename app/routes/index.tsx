@@ -3,13 +3,14 @@ import { useEffect, useRef, useState } from 'react';
 import io from 'socket.io-client';
 import { db } from '../util/db.server';
 import { type ActionArgs } from '@remix-run/node';
+import Message from '~/components/message';
 
 const socket = io();
 
-interface Message {
+interface IMessage {
   id: number,
   content: string,
-  author?: string
+  author: string
 }
 
 export async function loader() {
@@ -35,17 +36,17 @@ export async function action({ request }: ActionArgs) {
 }
 
 export default function Index() {
-  const [messages, setMessages] = useState(useLoaderData<typeof loader>() as Message[]);
+  const [messages, setMessages] = useState(useLoaderData<typeof loader>() as IMessage[]);
   const [authorInput, setAuthorInput] = useState('');
 
-  const receivedMessage = useActionData<typeof action>() as Message;
+  const receivedMessage = useActionData<typeof action>() as IMessage;
 
   const formRef = useRef<HTMLFormElement>(null);
   const chatContainerRef = useRef<HTMLDivElement>(null);
   const messageInputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
-    socket.on('receiveMessage', (receivedMessage: Message) => {
+    socket.on('receiveMessage', (receivedMessage: IMessage) => {
       setMessages(prevMessages => [...prevMessages, receivedMessage]);
     })
 
@@ -80,10 +81,7 @@ export default function Index() {
   return (
     <div className='w-5/6 md:w-3/4 mx-auto h-screen flex flex-col dark:bg-gray-900'>
       <div className='chat-container border-2 rounded-md border-stone-800 p-2 h-2/3 overflow-y-scroll min-w-max no-scrollbar' ref={chatContainerRef}>
-        {messages.map((message: Message) => <div key={message.id} className='bg-gray-300 dark:bg-gray-700 w-fit py-1 px-2 m-1 rounded-md'>
-          <p className='dark:text-white text-xs'>{message.author}</p>
-          <p className='break-words dark:text-white' key={message.id}>{message.content}</p>
-        </div>)}
+        {messages.map((message: IMessage) => <Message key={message.id} messageId={message.id} content={message.content} author={message.author} />)}
       </div>
       <div className='mt-4'>
         <Form method='post' ref={formRef} className='flex flex-col md:flex-row'>
