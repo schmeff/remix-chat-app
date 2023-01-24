@@ -20,7 +20,6 @@ export default function Message({
       className='bg-gray-300 dark:bg-gray-700 w-fit py-1 px-2 my-3 rounded-md relative'
       onMouseEnter={() => setShowMessageActions(true)}
       onMouseLeave={() => setShowMessageActions(false)}
-      onTouchStart={() => setShowMessageActions(true)}
     >
       {showMessageActions && (
         <div className='bg-gray-300 dark:bg-gray-700 border-2 rounded-md p-1 absolute dark:border-gray-900 -bottom-8 flex gap-2 z-10' >
@@ -55,7 +54,7 @@ export default function Message({
       <p className='flex my-1 gap-2'>
         {likes > 0 && <FaThumbsUp className='text-yellow-300 text-sm' />}
         {likes < 0 && <FaThumbsDown className='text-yellow-300 text-sm' />}
-        {likes !== 0 ? <p className='text-white text-sm'>{likes}</p> : null}
+        {likes !== 0 ? <p className='dark:text-white text-sm'>{likes}</p> : null}
       </p>
     </div>
   )
