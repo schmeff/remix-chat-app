@@ -1,4 +1,4 @@
-import type { MetaFunction } from "@remix-run/node";
+import type { MetaFunction } from '@remix-run/node'
 import {
   Links,
   LiveReload,
@@ -6,36 +6,48 @@ import {
   Outlet,
   Scripts,
   ScrollRestoration,
-} from "@remix-run/react";
+} from '@remix-run/react'
 
 import styles from './styles/app.css'
-import { useState } from "react";
-import { MdOutlineLightMode, MdOutlineDarkMode } from "react-icons/md";
+import { useState } from 'react'
+import { MdOutlineLightMode, MdOutlineDarkMode } from 'react-icons/md'
 
 export const meta: MetaFunction = () => ({
-  charset: "utf-8",
-  title: "Schmeff Chat App",
-  viewport: "width=device-width,initial-scale=1",
-});
+  charset: 'utf-8',
+  title: 'Schmeff Chat App',
+  viewport: 'width=device-width,initial-scale=1',
+})
 
 export default function App() {
-  const [darkMode, setDarkMode] = useState(true);
+  const [darkMode, setDarkMode] = useState(true)
 
   return (
-    <html lang="en" className={`${darkMode ? 'dark' : ''}`}>
+    <html lang='en' className={`${darkMode ? 'dark' : ''}`}>
       <head>
         <Meta />
         <Links />
       </head>
-      <body className="dark:bg-gray-900">
-        <nav className="flex place-content-end mx-3 my-2"><button onClick={() => { setDarkMode(prev => !prev) }}>{darkMode ? <MdOutlineLightMode className="text-white text-4xl" /> : <MdOutlineDarkMode className="text-4xl" />}</button></nav>
+      <body className='dark:bg-gray-900'>
+        <nav className='flex place-content-end mx-3 my-2'>
+          <button
+            onClick={() => {
+              setDarkMode((prev) => !prev)
+            }}
+          >
+            {darkMode ? (
+              <MdOutlineLightMode className='text-white text-4xl' />
+            ) : (
+              <MdOutlineDarkMode className='text-4xl' />
+            )}
+          </button>
+        </nav>
         <Outlet />
         <ScrollRestoration />
         <Scripts />
         <LiveReload />
       </body>
     </html>
-  );
+  )
 }
 
 export function links() {

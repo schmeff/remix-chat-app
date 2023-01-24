@@ -11,16 +11,8 @@ datasource db {
 }
 
 model Message {
-  id      Int             @id @default(autoincrement())
+  id      Int     @id @default(autoincrement())
   content String
   author  String?
-  emojis  MessageEmojis[]
-}
-
-model MessageEmojis {
-  id        Int      @id @default(autoincrement())
-  type      String
-  count     Int
-  Message   Message? @relation(fields: [messageId], references: [id])
-  messageId Int?
+  likes  Int? @default(0)
 }
