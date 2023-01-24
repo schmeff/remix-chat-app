@@ -94,7 +94,6 @@ export default function Index() {
 
   useEffect(() => {
     if (messageData) {
-      console.log(messageData);
       switch (messageData.action) {
         case MESSAGE_ACTIONS.SEND:
           formRef.current?.reset()
@@ -130,7 +129,7 @@ export default function Index() {
   return (
     <div className='w-5/6 md:w-3/4 mx-auto h-screen flex flex-col dark:bg-gray-900'>
       <div
-        className='chat-container border-2 rounded-md border-stone-800 px-2 py-5 h-2/3 overflow-y-scroll w-auto no-scrollbar'
+        className='chat-container border-2 rounded-md border-stone-800 p-2 h-2/3 overflow-y-scroll w-auto no-scrollbar'
         ref={chatContainerRef}
       >
         {messages.map((message: IMessage) => (
